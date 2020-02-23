@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Reto Ryter",
+            "jobs": [
+                {
+                    "employer": "Mobiliar",
+                    "from": "2/23/2020",
+                    "to": "2/23/2020"
+                },
+                {
+                    "employer": "Localsearch",
+                    "from": "2/23/2020",
+                    "to": "2/23/2020"
+                },
+                {
+                    "employer": "Notch Interactive",
+                    "from": "2/23/2020",
+                    "to": "2/23/2020"
+                }
+            ]
+        }
+    ]
+}

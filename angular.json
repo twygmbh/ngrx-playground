@@ -1,6 +1,132 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ngrx-playground": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngrx-playground",
+      "sourceRoot": "projects/ngrx-playground/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngrx-playground",
+            "index": "projects/ngrx-playground/src/index.html",
+            "main": "projects/ngrx-playground/src/main.ts",
+            "polyfills": "projects/ngrx-playground/src/polyfills.ts",
+            "tsConfig": "projects/ngrx-playground/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ngrx-playground/src/favicon.ico",
+              "projects/ngrx-playground/src/assets"
+            ],
+            "styles": [
+              "projects/ngrx-playground/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngrx-playground/src/environments/environment.ts",
+                  "with": "projects/ngrx-playground/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngrx-playground:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngrx-playground:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngrx-playground:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngrx-playground/src/test.ts",
+            "polyfills": "projects/ngrx-playground/src/polyfills.ts",
+            "tsConfig": "projects/ngrx-playground/tsconfig.spec.json",
+            "karmaConfig": "projects/ngrx-playground/karma.conf.js",
+            "assets": [
+              "projects/ngrx-playground/src/favicon.ico",
+              "projects/ngrx-playground/src/assets"
+            ],
+            "styles": [
+              "projects/ngrx-playground/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngrx-playground/tsconfig.app.json",
+              "projects/ngrx-playground/tsconfig.spec.json",
+              "projects/ngrx-playground/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngrx-playground/e2e/protractor.conf.js",
+            "devServerTarget": "ngrx-playground:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngrx-playground:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngrx-playground",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
