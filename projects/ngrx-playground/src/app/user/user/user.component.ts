@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserState } from '../../store/reducers/user.reducer';
-import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { UserFacadeService } from '../../store/facade/user-facade.service';
 
@@ -24,13 +23,23 @@ export class UserComponent implements OnInit {
         this.jobsControl = this.form.get('jobs') as FormArray;
     }
 
-    ngOnInit(): void {
-        this.user$.subscribe((user: UserState) => {
-            this.form.patchValue({ ...user });
+    save() {
+        this.userFacade.save(this.form.value);
+    }
 
-            user.jobs.forEach(job => {
-                this.jobsControl.push(this.fb.group({ ...job }));
-            });
+    ngOnInit(): void {
+        this.user$.subscribe((users: UserState[]) => {
+            if (users.length > 0) {
+                const user = users[0];
+                this.form.patchValue({ ...user });
+
+                if (user.jobs) {
+                    this.jobsControl.clear(); // there has to be a better way
+                    user.jobs.forEach(job => {
+                        this.jobsControl.push(this.fb.group({ ...job }));
+                    });
+                }
+            }
         });
     }
 
